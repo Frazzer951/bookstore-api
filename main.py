@@ -47,9 +47,9 @@ async def get_book(book_id: int):
 # POST /books: Adds a new book to the store
 @app.post("/books")
 async def add_book(book: Book):
-    # TODO
-    db.books.insert_one(book.dict())
-    pass
+    result = await db.books.insert_one(book.dict())
+    id = result.inserted_id
+    return {"id": str(id)}
 
 
 # PUT /books/{book_id}: Updates an existing book by ID
