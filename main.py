@@ -83,8 +83,8 @@ async def delete_book(book_id: int):  # TODO
 
 
 # GET /search?title={}&author={}&min_price={}&max_price={}: Searches for books by title, author, and price range
-@app.get("/search?title={}&author={}&min_price={}&max_price={}", tags=["Find Books"])
-async def search_book(title: str, author: str, min_price: float, max_price: float):  # TODO
+@app.get("/search", tags=["Find Books"])
+async def search_book(title: str = None, author: str = None, min_price: float = None, max_price: float = None):  # TODO
     pass
 
 
