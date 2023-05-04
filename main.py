@@ -41,7 +41,8 @@ async def books():
 async def get_book(book_id: int):
     # TODO
     book = db.books.find({"_id": book_id})
-    pass
+
+    return book
 
 
 # POST /books: Adds a new book to the store
@@ -56,6 +57,7 @@ async def add_book(book: Book):
 @app.put("/books/{book_id}")
 async def update_book(book_id: int, book: Book):
     # TODO
+
     pass
 
 
