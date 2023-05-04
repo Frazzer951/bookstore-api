@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
 from bson.objectid import ObjectId
+import json
 
 app = FastAPI()
 load_dotenv()
@@ -85,3 +86,17 @@ async def delete_book(book_id: int):  # TODO
 @app.get("/search?title={}&author={}&min_price={}&max_price={}")
 async def search_book(title: str, author: str, min_price: float, max_price: float):  # TODO
     pass
+
+
+# POST /add-books: Adds a bunch of books from books.json into the store
+@app.post("/add-books")
+async def add_books():
+    # load books.json
+    with open("books.json", "r") as f:
+        books = json.load(f)
+
+    # insert books into db using insert_many
+    result = await db.books.insert_many(books)
+
+    # return the number of books added
+    return {"books_added": len(result.inserted_ids)}

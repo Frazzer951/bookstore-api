@@ -1,0 +1,93 @@
+[
+    {
+        "title": "The Enigma of the Emerald Sphinx",
+        "author": "Aurora Grey",
+        "description": "A mystery novel about a stolen artifact",
+        "price": 19.99,
+        "stock": 15
+    },
+    {
+        "title": "Echoes of Eternity",
+        "author": "Maxwell King",
+        "description": "A science fiction adventure about time travel",
+        "price": 12.50,
+        "stock": 8
+    },
+    {
+        "title": "The Art of Happiness",
+        "author": "Katie Chen",
+        "description": "A self-help book about finding inner peace",
+        "price": 8.99,
+        "stock": 20
+    },
+    {
+        "title": "The Secret Life of Bees",
+        "author": "Samantha Lee",
+        "description": "A coming-of-age novel set in the South",
+        "price": 10.75,
+        "stock": 12
+    },
+    {
+        "title": "A Taste of Paris",
+        "author": "Isabella Peters",
+        "description": "A cookbook featuring classic French recipes",
+        "price": 24.99,
+        "stock": 5
+    },
+    {
+        "title": "The Lost City of Z",
+        "author": "Ethan Davis",
+        "description": "A non-fiction book about the search for a lost civilization",
+        "price": 14.99,
+        "stock": 18
+    },
+    {
+        "title": "The Nightingale",
+        "author": "Olivia Chen",
+        "description": "A historical fiction novel set in World War II",
+        "price": 9.99,
+        "stock": 25
+    },
+    {
+        "title": "The Hitchhiker's Guide to the Galaxy",
+        "author": "Adam Smith",
+        "description": "A science fiction comedy about the end of the world",
+        "price": 7.99,
+        "stock": 30
+    },
+    {
+        "title": "The Sun Also Rises",
+        "author": "Noah Lee",
+        "description": "A classic novel about expatriates in Europe",
+        "price": 6.99,
+        "stock": 9
+    },
+    {
+        "title": "The Girl with the Dragon Tattoo",
+        "author": "Sophia Kim",
+        "description": "A mystery novel about a journalist investigating a cold case",
+        "price": 11.99,
+        "stock": 14
+    },
+    {
+        "title": "The Hunger Games",
+        "author": "Emma Zhang",
+        "description": "A dystopian novel about a government-sponsored death match",
+        "price": 8.50,
+        "stock": 22
+    },
+    {
+        "title": "Pride and Prejudice",
+        "author": "Charlotte Wong",
+        "description": "A classic romance novel set in 19th century England",
+        "price": 5.99,
+        "stock": 7
+    },
+    {
+        "title": "The Picture of Dorian Gray",
+        "author": "Andrew Chen",
+        "description": "A novel about a man who never ages",
+        "price": 13.99,
+        "stock": 11
+    }
+]
