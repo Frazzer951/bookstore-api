@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
-from pymongo import MongoClient
 
 app = FastAPI()
 load_dotenv()
