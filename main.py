@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
+from bson.objectid import ObjectId
 
 app = FastAPI()
 load_dotenv()
@@ -23,24 +24,40 @@ mongo_client = AsyncIOMotorClient(getenv("DB_HOST"))
 db = mongo_client[getenv("DB_NAME")]
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
 # GET /books: Retrieves a list of all books in the store
 @app.get("/books")
-async def books():
-    # TODO
-    pass
+async def books():  # TODO
+    result = await db.books.find().to_list(None)
+    books = [
+        {
+            "id": str(book["_id"]),
+            "book": Book(
+                title=book["title"],
+                author=book["author"],
+                description=book["description"],
+                price=book["price"],
+                stock=book["stock"],
+            ),
+        }
+        for book in result
+    ]
+    return books
 
 
 # GET /books/{book_id}: Retrieves a specific book by ID
 @app.get("/books/{book_id}")
-async def get_book(book_id: int):
-    # TODO
-    book = db.books.find({"_id": book_id})
-
+async def get_book(book_id: str):
+    book = await db.books.find_one({"_id": ObjectId(book_id)})
+    book = {
+        "id": str(book["_id"]),
+        "book": Book(
+            title=book["title"],
+            author=book["author"],
+            description=book["description"],
+            price=book["price"],
+            stock=book["stock"],
+        ),
+    }
     return book
 
 
@@ -54,21 +71,17 @@ async def add_book(book: Book):
 
 # PUT /books/{book_id}: Updates an existing book by ID
 @app.put("/books/{book_id}")
-async def update_book(book_id: int, book: Book):
-    # TODO
-
+async def update_book(book_id: int, book: Book):  # TODO
     pass
 
 
 # DELETE /books/{book_id}: Deletes a book from the store by ID
 @app.delete("/books/{book_id}")
-async def delete_book(book_id: int):
-    # TODO
+async def delete_book(book_id: int):  # TODO
     pass
 
 
 # GET /search?title={}&author={}&min_price={}&max_price={}: Searches for books by title, author, and price range
 @app.get("/search?title={}&author={}&min_price={}&max_price={}")
-async def search_book(title: str, author: str, min_price: float, max_price: float):
-    # TODO
+async def search_book(title: str, author: str, min_price: float, max_price: float):  # TODO
     pass
