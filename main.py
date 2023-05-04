@@ -26,7 +26,7 @@ db = mongo_client[getenv("DB_NAME")]
 
 
 # GET /books: Retrieves a list of all books in the store
-@app.get("/books")
+@app.get("/books", tags=["Find Books"])
 async def books():  # TODO
     result = await db.books.find().to_list(None)
     books = [
@@ -46,7 +46,7 @@ async def books():  # TODO
 
 
 # GET /books/{book_id}: Retrieves a specific book by ID
-@app.get("/books/{book_id}")
+@app.get("/books/{book_id}", tags=["Find Books"])
 async def get_book(book_id: str):
     book = await db.books.find_one({"_id": ObjectId(book_id)})
     book = {
@@ -63,7 +63,7 @@ async def get_book(book_id: str):
 
 
 # POST /books: Adds a new book to the store
-@app.post("/books")
+@app.post("/books", tags=["Modify Books"])
 async def add_book(book: Book):
     result = await db.books.insert_one(book.dict())
     id = result.inserted_id
@@ -71,25 +71,25 @@ async def add_book(book: Book):
 
 
 # PUT /books/{book_id}: Updates an existing book by ID
-@app.put("/books/{book_id}")
+@app.put("/books/{book_id}", tags=["Modify Books"])
 async def update_book(book_id: int, book: Book):  # TODO
     pass
 
 
 # DELETE /books/{book_id}: Deletes a book from the store by ID
-@app.delete("/books/{book_id}")
+@app.delete("/books/{book_id}", tags=["Modify Books"])
 async def delete_book(book_id: int):  # TODO
     pass
 
 
 # GET /search?title={}&author={}&min_price={}&max_price={}: Searches for books by title, author, and price range
-@app.get("/search?title={}&author={}&min_price={}&max_price={}")
+@app.get("/search?title={}&author={}&min_price={}&max_price={}", tags=["Find Books"])
 async def search_book(title: str, author: str, min_price: float, max_price: float):  # TODO
     pass
 
 
 # POST /add-books: Adds a bunch of books from books.json into the store
-@app.post("/add-books")
+@app.post("/add-books", tags=["Dev Helpers"])
 async def add_books():
     # load books.json
     with open("books.json", "r") as f:
