@@ -17,11 +17,11 @@ William Lim
   - [ ] Top 5 authors with most books in store
   - [x] All Books
   - [x] Book by ID
-- [ ] Modifying Books
+- [x] Modifying Books
   - [x] Add New Book
-  - [ ] Update Book
-  - [ ] Remove Book
-- [ ] Search
+  - [x] Update Book
+  - [x] Remove Book
+- [x] Search
 - [ ] Purchase
 - [ ] Data Validation
 - [ ] Documentation

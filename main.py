@@ -62,6 +62,7 @@ async def get_book(book_id: str):
     return book
 
 
+
 # POST /books: Adds a new book to the store
 @app.post("/books", tags=["Modify Books"])
 async def add_book(book: Book):
@@ -72,20 +73,50 @@ async def add_book(book: Book):
 
 # PUT /books/{book_id}: Updates an existing book by ID
 @app.put("/books/{book_id}", tags=["Modify Books"])
-async def update_book(book_id: int, book: Book):  # TODO
-    pass
+async def update_book(book_id: str, book: Book):  # TODO
+    result = await db.books.update_one({"_id":ObjectId(book_id)}, {"$set":book.dict()})
+    return {"id":book_id}
 
 
 # DELETE /books/{book_id}: Deletes a book from the store by ID
 @app.delete("/books/{book_id}", tags=["Modify Books"])
-async def delete_book(book_id: int):  # TODO
-    pass
+async def delete_book(book_id: str):  # TODO
+    result = await db.books.delete_one({"_id":ObjectId(book_id)})
+    return {"id":book_id}
 
 
 # GET /search?title={}&author={}&min_price={}&max_price={}: Searches for books by title, author, and price range
 @app.get("/search", tags=["Find Books"])
-async def search_book(title: str = None, author: str = None, min_price: float = None, max_price: float = None):  # TODO
-    pass
+async def search_book(title: str = None, author: str = None, min_price: float = None, max_price: float = None):
+
+    # build the query
+    parameters = {}
+    if title:
+        parameters["title"] = title
+    if author:
+        parameters["author"] = author
+    if min_price or max_price:
+        parameters["price"] = {}
+    if min_price:
+        parameters["price"]["$gte"] = min_price
+    if max_price:
+        parameters["price"]["$lte"] = max_price
+    
+    # get the result
+    result = []
+    async for book in db.books.find({**parameters}):
+        result.append({
+            "id": str(book["_id"]),
+            "book": Book(
+                title=book["title"],
+                author=book["author"],
+                description=book["description"],
+                price=book["price"],
+                stock=book["stock"],
+            ),
+        })
+
+    return result
 
 
 # POST /add-books: Adds a bunch of books from books.json into the store
