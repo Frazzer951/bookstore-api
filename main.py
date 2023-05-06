@@ -108,7 +108,7 @@ async def search_book(title: str = None, author: str = None, min_price: float = 
     
     # get the result
     result = []
-    async for book in db.books.find({**parameters}):
+    async for book in db.books.find(parameters):
         result.append({
             "id": str(book["_id"]),
             "book": Book(
@@ -206,7 +206,7 @@ async def purchase_book(transaction:Transaction):  # TODO
     trans_dict = transaction.dict()
     # check if book in stock
     stock = await db.books.find_one({"_id": ObjectId(trans_dict["book_id"])})
-    
+
     if stock["stock"] > trans_dict["amount"]:
         await db.books.update_one({"_id": ObjectId(trans_dict["book_id"])}, {"$set":{"stock":stock["stock"]-trans_dict["amount"]}})
         await db.transactions.insert_one(trans_dict)
