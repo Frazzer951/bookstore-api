@@ -1,5 +1,6 @@
 [
     {
+        "_id": "64542b27592125e8073a9f11",
         "title": "The Enigma of the Emerald Sphinx",
         "author": "Aurora Grey",
         "description": "A mystery novel about a stolen artifact",
@@ -7,13 +8,15 @@
         "stock": 15
     },
     {
+        "_id": "64542b27592125e8073a9f12",
         "title": "Echoes of Eternity",
         "author": "Maxwell King",
         "description": "A science fiction adventure about time travel",
-        "price": 12.50,
+        "price": 12.5,
         "stock": 8
     },
     {
+        "_id": "64542b27592125e8073a9f13",
         "title": "The Art of Happiness",
         "author": "Katie Chen",
         "description": "A self-help book about finding inner peace",
@@ -21,6 +24,7 @@
         "stock": 20
     },
     {
+        "_id": "64542b27592125e8073a9f14",
         "title": "The Secret Life of Bees",
         "author": "Samantha Lee",
         "description": "A coming-of-age novel set in the South",
@@ -28,6 +32,7 @@
         "stock": 12
     },
     {
+        "_id": "64542b27592125e8073a9f15",
         "title": "A Taste of Paris",
         "author": "Isabella Peters",
         "description": "A cookbook featuring classic French recipes",
@@ -35,6 +40,7 @@
         "stock": 5
     },
     {
+        "_id": "64542b27592125e8073a9f16",
         "title": "The Lost City of Z",
         "author": "Ethan Davis",
         "description": "A non-fiction book about the search for a lost civilization",
@@ -42,6 +48,7 @@
         "stock": 18
     },
     {
+        "_id": "64542b27592125e8073a9f17",
         "title": "The Nightingale",
         "author": "Olivia Chen",
         "description": "A historical fiction novel set in World War II",
@@ -49,6 +56,7 @@
         "stock": 25
     },
     {
+        "_id": "64542b27592125e8073a9f18",
         "title": "The Hitchhiker's Guide to the Galaxy",
         "author": "Adam Smith",
         "description": "A science fiction comedy about the end of the world",
@@ -56,6 +64,7 @@
         "stock": 30
     },
     {
+        "_id": "64542b27592125e8073a9f19",
         "title": "The Sun Also Rises",
         "author": "Noah Lee",
         "description": "A classic novel about expatriates in Europe",
@@ -63,6 +72,7 @@
         "stock": 9
     },
     {
+        "_id": "64542b27592125e8073a9f1a",
         "title": "The Girl with the Dragon Tattoo",
         "author": "Sophia Kim",
         "description": "A mystery novel about a journalist investigating a cold case",
@@ -70,13 +80,15 @@
         "stock": 14
     },
     {
+        "_id": "64542b27592125e8073a9f1b",
         "title": "The Hunger Games",
         "author": "Emma Zhang",
         "description": "A dystopian novel about a government-sponsored death match",
-        "price": 8.50,
+        "price": 8.5,
         "stock": 22
     },
     {
+        "_id": "64542b27592125e8073a9f1c",
         "title": "Pride and Prejudice",
         "author": "Charlotte Wong",
         "description": "A classic romance novel set in 19th century England",
@@ -84,6 +96,7 @@
         "stock": 7
     },
     {
+        "_id": "64542b27592125e8073a9f1d",
         "title": "The Picture of Dorian Gray",
         "author": "Andrew Chen",
         "description": "A novel about a man who never ages",
