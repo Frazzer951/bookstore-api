@@ -19,11 +19,15 @@ class Book(BaseModel):
     price: float
     stock: int
 
+class Transaction(BaseModel):
+    book_id:str
+    name:str
+    amount:int
+
 
 # Initialize MongoDB client
 mongo_client = AsyncIOMotorClient(getenv("DB_HOST"))
 db = mongo_client[getenv("DB_NAME")]
-
 
 # GET /books: Retrieves a list of all books in the store
 @app.get("/books", tags=["Find Books"])
@@ -131,3 +135,148 @@ async def add_books():
 
     # return the number of books added
     return {"books_added": len(result.inserted_ids)}
+
+
+# GET /top-5-authors: Gets a list of top 5 authors
+@app.get("/top-5-authors", tags=["Top 5 Authors"])
+async def top_5_authors():
+    # query for authors
+    query = [
+        {
+            '$group': {
+                '_id': {
+                    'author': '$author'
+                }, 
+                'count': {
+                    '$count': {}
+                }
+            }
+        }, {
+            '$sort': {
+                'count': -1
+            }
+        }, {
+            '$project': {
+                '_id': 0, 
+                'author': '$_id.author', 
+                'count': 1
+            }
+        }, {
+            '$limit': 5
+        }
+    ]
+    
+    result = []
+    # build result value
+    async for author in db.books.aggregate(query):
+        result.append({
+            "author":author["author"],
+            "count":author["count"]
+        })
+    
+    return result
+
+# GET /total-stock: Gets the total stock of books in the store
+@app.get("/total-stock", tags=["Total Stock"])
+async def total_stock():
+    # get stock
+    stock = await db.books.aggregate([
+        {
+            '$group': {
+                '_id': '', 
+                'stock': {
+                    '$sum': '$stock'
+                }
+            }
+        }, {
+            '$project': {
+                '_id': 0, 
+                'stock': 1
+            }
+        }
+    ]).to_list(None)
+
+    return {"stock":stock[0]["stock"]}
+
+# PUT /purchase: Purchases an existing book by ID
+@app.put("/purchase", tags=["Purchase Books"])
+async def purchase_book(transaction:Transaction):  # TODO
+    # Creates a new transaction using json data from the body of the request.
+
+    trans_dict = transaction.dict()
+    # check if book in stock
+    stock = await db.books.find_one({"_id": ObjectId(trans_dict["book_id"])})
+    
+    if stock["stock"] > trans_dict["amount"]:
+        await db.books.update_one({"_id": ObjectId(trans_dict["book_id"])}, {"$set":{"stock":stock["stock"]-trans_dict["amount"]}})
+        await db.transactions.insert_one(trans_dict)
+        return {"id":trans_dict["book_id"]}
+    else:
+        return {"message":"There are not enough books in stock to buy that ammount", "stock":stock["stock"]}
+    
+# GET /bestselling: Lists the top 5 books with the most transactions
+@app.get("/bestselling", tags=["Bestselling Books"])
+async def bestselling():
+
+    # query for bestsellers
+    query = [
+        {
+            '$group': {
+                '_id': {
+                    'book_id': '$book_id'
+                }, 
+                'count': {
+                    '$sum': '$amount'
+                }
+            }
+        }, {
+            '$sort': {
+                'count': -1
+            }
+        }, {
+            '$project': {
+                'book_id': {
+                    '$toObjectId': '$_id.book_id'
+                }, 
+                'count': 1
+            }
+        }, {
+            '$lookup': {
+                'from': 'books', 
+                'localField': 'book_id', 
+                'foreignField': '_id', 
+                'as': 'book'
+            }
+        }, {
+            '$unwind': {
+                'path': '$book'
+            }
+        }, {
+            '$project': {
+                '_id': '$book._id', 
+                'title': '$book.title', 
+                'author': '$book.author', 
+                'description': '$book.description', 
+                'price': '$book.description', 
+                'stock': '$book.stock', 
+                'ammount_sold': '$count'
+            }
+        }, {
+            '$limit': 5
+        }
+    ]
+    
+    result = []
+    # build result value
+    async for bestseller in db.transactions.aggregate(query):
+        result.append({
+            "_id":str(bestseller["_id"]),
+            "title":bestseller["title"],
+            "author":bestseller["author"],
+            "description":bestseller["description"],
+            "price":bestseller["price"],
+            "stock":bestseller["stock"],
+            "ammount_sold":bestseller["ammount_sold"]
+        })
+
+    return result
