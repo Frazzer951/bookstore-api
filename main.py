@@ -270,3 +270,19 @@ async def add_transactions():
 
     # return the number of books added
     return {"transactions_added": len(result.inserted_ids)}
+
+
+# POST /add-indexes: Adds indexes to the database for more efficient queries
+@app.post("/add-indexes", tags=["Dev Helpers"])
+async def add_indexes():
+    # add indexes to books
+    await db.books.create_index("title")
+    await db.books.create_index("author")
+    await db.books.create_index("price")
+    await db.books.create_index("stock")
+
+    # add indexes to transactions
+    await db.transactions.create_index("book_id")
+    await db.transactions.create_index("amount")
+
+    return {"message": "Indexes added"}

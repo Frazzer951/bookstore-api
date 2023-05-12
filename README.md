@@ -10,8 +10,8 @@ William Lim
 
 ## TODO
 
-- [ ] View
-  - [ ] MongoDB Index for quieries
+- [x] View
+  - [x] MongoDB Index for quieries
   - [x] Total Number of Books
   - [x] Top 5 bestselling books
   - [x] Top 5 authors with most books in store
