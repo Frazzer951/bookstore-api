@@ -23,6 +23,6 @@ William Lim
   - [x] Remove Book
 - [x] Search
 - [x] Purchase
-- [ ] Data Validation
+- [x] Data Validation
 - [ ] Documentation
 - [ ] Video explination
