@@ -48,22 +48,3 @@ William Lim
 ### Step 5 - USE THE API
 
 - Everything is ready to go and you can start using the API
-
-## TODO
-
-- [x] View
-  - [x] MongoDB Index for quieries
-  - [x] Total Number of Books
-  - [x] Top 5 bestselling books
-  - [x] Top 5 authors with most books in store
-  - [x] All Books
-  - [x] Book by ID
-- [x] Modifying Books
-  - [x] Add New Book
-  - [x] Update Book
-  - [x] Remove Book
-- [x] Search
-- [x] Purchase
-- [x] Data Validation
-- [x] Documentation
-- [ ] Video explination
